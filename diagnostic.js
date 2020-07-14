@@ -41,13 +41,12 @@ function probeUrlAsync(probeUrl)
 var probeUrls = [
                  {"note":"static http request test 1", "url":"/index.html", "expectStatus":[200], "timeout":10000},
                  {"note":"static http request test 1", "url":"/missing", "expectStatus":[404], "timeout":10000},
-                 {"note":"E-caregiver", "url":"https://e-caregiver.se/", "expectStatus":[0,200,404], "timeout":10000},
-                 {"note":"E-identitet IDP", "url":"https://login.grandid.com/", "expectStatus":[0,401], "timeout":10000},
                  ];
 
 var iframeUrls = [
-                  {"note":"simple iframe test (expected to be black with dark gray text)", "url":"https://mk.se/", "width":"100%", "height":"50"},
-                  {"note":"E-identitet IDP (expected to say \"Unauthorized\")", "url":"https://login.grandid.com/", "width":"100%", "height":"50"},
+                  {"note":"Doctrin.se (expected to show doctrin welcome page)", "url":"https://doctrin.se/", "width":"100%", "shrunk":true},
+                  {"note":"e-caregiver / (expected to show {\"statusCode\": 404,...})", "url":"https://e-caregiver.se/", "width":"100%", "shrunk":false},
+                  {"note":"E-identitet IDP (expected to say \"Unauthorized\")", "url":"https://login.grandid.com/", "shrunk":true},
                   ];
 
 var listHtml = "<dl>";
@@ -60,7 +59,7 @@ for (var i=0; i < probeUrls.length; i++) {
 for (var i=0; i < iframeUrls.length; i++) {
   var iframeUrl = iframeUrls[i];
   iframeUrl.id="iframe_"+i;
-  listHtml += '<dt>' + iframeUrl.note + ' [' + iframeUrl.url + ']</dt><dd id="'+ iframeUrl.id + '" class="wrap"><iframe class="frame" src="'+iframeUrl.url+'" title="'+iframeUrl.note+'" width="'+iframeUrl.width+'" height="'+iframeUrl.height+'" scrolling="no"></iframe></dd>';
+  listHtml += '<dt>' + iframeUrl.note + ' [' + iframeUrl.url + ']</dt><dd id="'+ iframeUrl.id + '" class="wrap"><iframe class="'+(iframeUrl.shrunk? "small" : "")+'" src="'+iframeUrl.url+'" title="'+iframeUrl.note+'" width="'+iframeUrl.width+'" height="'+iframeUrl.height+'" scrolling="no"></iframe></dd>';
 }
 listHtml += "</dl>"
 var contentElem = document.getElementById("content");
