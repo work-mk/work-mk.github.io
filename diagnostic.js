@@ -36,8 +36,8 @@ function probeUrlAsync(probeUrl)
 
 var probeUrls = [
                  {"id":"naive_test_1", "note":"static http request test 1", "url":"/index.html", "expectStatus":[200], "timeout":30000},
-                 {"id":"naive_test_1", "note":"static http request test 1", "url":"/missing", "expectStatus":[404], "timeout":30000},
-                 {"id":"naive_test_2", "note":"static http request test 2", "url":"https://mk.se/", "expectStatus":[200], "timeout":30000},
+                 {"id":"missing_file_test", "note":"static http request test 1", "url":"/missing", "expectStatus":[404], "timeout":30000},
+                 {"id":"static_test", "note":"static http request test 2", "url":"https://mk.se/", "expectStatus":[200], "timeout":30000},
                  {"id":"e_identity", "note":"E-identitet IDP", "url":"https://login.grandid.com/", "expectStatus":[401], "timeout":30000},
                  ];
 
