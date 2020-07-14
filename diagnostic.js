@@ -29,10 +29,6 @@ function probeUrlAsync(probeUrl)
     elem.innerHTML = "timeout";
     elem.className = "failed";
   }
-  /*  xmlHttp.onerror = function() {
-    elem.innerHTML = "error "+xmlHttp.status;
-    elem.className = "failed";
-    }*/
   xmlHttp.open("HEAD", probeUrl.url, true);
   xmlHttp.timeout = probeUrl.timeout;
   xmlHttp.send(null);
