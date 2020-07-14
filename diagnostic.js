@@ -17,7 +17,7 @@ function probeUrlAsync(probeUrl)
       elem.innerHTML = progress;
       elem.className = "loading"
     } else {
-      elem.innerHTML = "status:" + xmlHttp.status+ " ("+escape(xmlHttp.statusText)+")";
+      elem.innerHTML = "status:" + xmlHttp.status+ " ("+escape(xmlHttp.statusText).replaceAll('%20', " ")+")";
       if (checkStatus(probeUrl.expectStatus, xmlHttp.status)) {
         elem.className = "ok";
       } else {
