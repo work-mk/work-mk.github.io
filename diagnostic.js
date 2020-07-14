@@ -40,7 +40,7 @@ var probeUrls = [
                  ];
 
 var iframeUrls = [
-                  {"id":"naive_iframe", "note":"simple iframe test", "url":"http://mk.se/", "width":"100%", "height":"50"},
+                  {"id":"naive_iframe", "note":"simple iframe test", "url":"https://mk.se/", "width":"100%", "height":"50"},
                   {"id":"frame_e_identity", "note":"E-identitet IDP (expected to say \"Unauthorized\")", "url":"https://login.grandid.com/", "width":"100%", "height":"50"},
                   ];
 
