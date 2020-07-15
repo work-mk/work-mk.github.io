@@ -1,6 +1,8 @@
 function checkStatus(expectStatus, status) {
   for (var i = 0; i < expectStatus.length; i++) {
-    if (expectStatus[i] == status) return true;
+    if (expectStatus[i] == status) {
+      return true;
+    }
   }
   return false;
 }
@@ -33,33 +35,42 @@ function probeUrlAsync(probeUrl)
   xmlHttp.timeout = probeUrl.timeout;
   xmlHttp.send(null);
 }
-
+// urls to probe with a HEAD call. These may prove to be fairly limited because of CORS
 var probeUrls = [
                  {"note":"static http request test 1", "url":"/index.html", "expectStatus":[200], "timeout":10000},
                  {"note":"static http request test 1", "url":"/missing", "expectStatus":[404], "timeout":10000},
                  ];
-
+// urls to show in small iframes
 var iframeUrls = [
-                  {"note":"Doctrin.se (expected to show doctrin welcome page)", "url":"https://doctrin.se/", "width":"100%", "shrunk":true},
-                  {"note":"e-caregiver / (expected to show {\"statusCode\": 404,...})", "url":"https://e-caregiver.se/", "width":"100%", "shrunk":false},
-                  {"note":"E-identitet IDP (expected to say \"Unauthorized\")", "url":"https://login.grandid.com/", "shrunk":true},
+                  {"note":"Doctrin.se (expected to show doctrin welcome page)", "url":"https://doctrin.se/", "small":true},
+                  {"note":"e-caregiver / (expected to show {\"statusCode\": 404,...})", "url":"https://e-caregiver.se/", "small":false},
+                  {"note":"E-identitet IDP (expected to say \"Unauthorized\")", "url":"https://login.grandid.com/", "small":true},
                   ];
 
 var listHtml = "<dl>";
 listHtml += '<dt> Browser agent</dt><dd>'+navigator.userAgent+'</dd>';
-for (var i=0; i < probeUrls.length; i++) {
+for (var i = 0; i < probeUrls.length; i++) {
   var probeUrl = probeUrls[i];
   probeUrl.id="probe_"+i;
   listHtml += "<dt>" + probeUrl.note + " [" + probeUrl.url + ']</dt><dd id="'+ probeUrl.id + '">checking...</dd>';
 }
-for (var i=0; i < iframeUrls.length; i++) {
+
+for (var i = 0; i < iframeUrls.length; i++) {
   var iframeUrl = iframeUrls[i];
-  iframeUrl.id="iframe_"+i;
-  listHtml += '<dt>' + iframeUrl.note + ' [' + iframeUrl.url + ']</dt><dd id="'+ iframeUrl.id + '" class="wrap"><iframe class="'+(iframeUrl.shrunk? "small" : "")+'" src="'+iframeUrl.url+'" title="'+iframeUrl.note+'" width="'+iframeUrl.width+'" height="'+iframeUrl.height+'" scrolling="no"></iframe></dd>';
+  var iframeClass = "";
+  if (iframeUrl.small) {
+    iframeClass = "small"; // zoomed out to fit more of the page in view
+  }
+  listHtml += ('<dt>' + iframeUrl.note + ' [' + iframeUrl.url + ']</dt>'
+               +'<dd class="wrap">';
+               +'<iframe class="' + iframeClass + '" src="' + iframeUrl.url + '" scrolling="no"></iframe>';
+               '</dd>');
 }
+
 listHtml += "</dl>"
+
 var contentElem = document.getElementById("content");
 contentElem.innerHTML = listHtml;
-for (var i=0; i < probeUrls.length; i++) {
+for (var i = 0; i < probeUrls.length; i++) {
   probeUrlAsync(probeUrls[i]);
 }
