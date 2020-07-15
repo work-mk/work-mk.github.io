@@ -62,9 +62,9 @@ for (var i = 0; i < iframeUrls.length; i++) {
     iframeClass = "small"; // zoomed out to fit more of the page in view
   }
   listHtml += ('<dt>' + iframeUrl.note + ' [' + iframeUrl.url + ']</dt>'
-               +'<dd class="wrap">';
-               +'<iframe class="' + iframeClass + '" src="' + iframeUrl.url + '" scrolling="no"></iframe>';
-               '</dd>');
+               +'<dd class="wrap">'
+               +'<iframe class="' + iframeClass + '" src="' + iframeUrl.url + '" scrolling="no"></iframe>'
+               +'</dd>');
 }
 
 listHtml += "</dl>"
