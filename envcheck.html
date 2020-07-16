@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"/>
-<title>Diagnostic PoC</title>
+<title>EnvCheck (beta)</title>
 <style>
-  dd.loading { color: yellow;}
-  dd.ok { color: green;}
-  dd.failed { color: red;}
-
+.loading { color: Orange;}
+.ok { color: Green;}
+.failed { color: Red;}
 .wrap
 {
   width: 320px;
@@ -15,7 +14,6 @@
   overflow: hidden;
   border: 1px solid #999;
 }
-
 .small
 {
     width: 1280px;
@@ -38,6 +36,19 @@
 </style>
 </head><body>
 <noscript><h1>This page requires javascript</h1></noscript>
-<div id="content">loading...</div>
-<script src="diagnostic.js"></script>
+
+<div id="content"></div>
+
+<script src="envcheck.js"></script>
+<script>
+var envCheck = new EnvCheck(document.getElementById('content'))
+envCheck.addField("UserAgent", navigator.userAgent);
+envCheck.addModule("WebsocketsTest", WebsocketsTest);
+envCheck.addModule("CookieTest", CookieTest);
+
+envCheck.addIframe('https://login.grandid.com', 'small', 'Expected to show "Unauthorized ..."');
+envCheck.addIframe('https://e-caregiver.se/', '', "Expected to show {\"statusCode\": 404,...})");
+
+envCheck.start();
+</script>
 </body></html>
